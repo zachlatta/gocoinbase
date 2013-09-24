@@ -6,15 +6,16 @@ import (
 )
 
 func TestGet(t *testing.T) {
-
-	expected := "{\"amount\":\"0.00000000\",\"currency\":\"BTC\"}"
+  expected := "{\"amount\":\"0.00000000\",\"currency\":\"BTC\"}"
 
   testServer := makeServerWithResponseBody(expected)
-	baseUrl = testServer.URL
+  defer testServer.Flush()
+
+  baseUrl = testServer.URL
 
   actual := Get("/balance")
 
-  if actual != []byte(expected) {
+  if string(actual) != expected {
     t.Error("Got:", actual, "Expected:", expected)
   }
 }
@@ -30,11 +31,10 @@ func TestMakeUrl(t *testing.T) {
 
 func makeServerWithResponseBody(body string) *fakehttp.HTTPServer {
 	testServer := fakehttp.NewHTTPServer()
-	defer testServer.Start()
+	testServer.Start()
 
   headers := make(map[string]string)
   headers["Connection"] = "keep-alive"
-  headers["Content-Encoding"] = "gzip"
   headers["Content-Type"] = "application/json; charset=utf-8"
   headers["Server"] = "cloudflare-nginx"
 
