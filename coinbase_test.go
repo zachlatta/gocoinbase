@@ -1,9 +1,6 @@
 package gocoinbase
 
-import (
-	"github.com/tleyden/fakehttp"
-	"testing"
-)
+import "testing"
 
 func TestGet(t *testing.T) {
   expected := "{\"amount\":\"0.00000000\",\"currency\":\"BTC\"}"
@@ -27,18 +24,4 @@ func TestMakeUrl(t *testing.T) {
 	if actual != expected {
 		t.Error("Got:", actual, "Expected:", expected)
 	}
-}
-
-func makeServerWithResponseBody(body string) *fakehttp.HTTPServer {
-	testServer := fakehttp.NewHTTPServer()
-	testServer.Start()
-
-  headers := make(map[string]string)
-  headers["Connection"] = "keep-alive"
-  headers["Content-Type"] = "application/json; charset=utf-8"
-  headers["Server"] = "cloudflare-nginx"
-
-	testServer.Response(200, headers, body)
-
-  return testServer
 }
