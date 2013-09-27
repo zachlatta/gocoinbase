@@ -3,18 +3,15 @@ package gocoinbase
 import "testing"
 
 func TestGet(t *testing.T) {
-  expected := "{\"amount\":\"0.00000000\",\"currency\":\"BTC\"}"
+	expected := "{\"amount\":\"0.00000000\",\"currency\":\"BTC\"}"
 
-  testServer := makeServerWithResponseBody(expected)
-  defer testServer.Flush()
+	setTestServerResponseBody(expected)
 
-  baseUrl = testServer.URL
+	actual := Get("/balance")
 
-  actual := Get("/balance")
-
-  if string(actual) != expected {
-    t.Error("Got:", actual, "Expected:", expected)
-  }
+	if string(actual) != expected {
+		t.Error("Got:", actual, "Expected:", expected)
+	}
 }
 
 func TestMakeUrl(t *testing.T) {
@@ -24,4 +21,5 @@ func TestMakeUrl(t *testing.T) {
 	if actual != expected {
 		t.Error("Got:", actual, "Expected:", expected)
 	}
+	baseUrl = testServer.URL
 }
