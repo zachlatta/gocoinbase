@@ -7,7 +7,7 @@ func TestGet(t *testing.T) {
 
 	setTestServerResponseBody(expected)
 
-	actual := Get("/balance")
+  actual := c.Get("/balance")
 
 	if string(actual) != expected {
 		t.Error("Got:", actual, "Expected:", expected)
@@ -15,11 +15,11 @@ func TestGet(t *testing.T) {
 }
 
 func TestMakeUrl(t *testing.T) {
-	Init("42")
-	actual, expected := makeUrl("/balance"),
+  c.baseUrl = "https://coinbase.com/api/v1"
+	actual, expected := c.makeUrl("/balance"),
 		"https://coinbase.com/api/v1/balance?api_key=42"
 	if actual != expected {
 		t.Error("Got:", actual, "Expected:", expected)
 	}
-	baseUrl = testServer.URL
+	c.baseUrl = testServer.URL
 }

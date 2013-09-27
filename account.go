@@ -8,9 +8,9 @@ type balance struct {
 	Name   string
 }
 
-func Balance() float64 {
+func (c *Coinbase) Balance() float64 {
 	var b balance
-	err := json.Unmarshal(Get("/balance"), &b)
+	err := json.Unmarshal(c.Get("/balance"), &b)
 	if err != nil {
 		fmt.Println(err)
 		return -1

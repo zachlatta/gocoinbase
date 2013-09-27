@@ -5,10 +5,12 @@ import (
 )
 
 var testServer *fakehttp.HTTPServer
+var c *Coinbase
 
 func init() {
+  c = Init("42")
 	testServer = makeServer()
-	baseUrl = testServer.URL
+	c.baseUrl = testServer.URL
 }
 
 func makeServer() *fakehttp.HTTPServer {

@@ -5,15 +5,17 @@ import (
 	"net/http"
 )
 
-var baseUrl, apiKey string
-
-func Init(key string) {
-	apiKey = key
-	baseUrl = "https://coinbase.com/api/v1"
+type Coinbase struct {
+  apiKey string
+  baseUrl string
 }
 
-func Get(path string) []byte {
-	res, err := http.Get(makeUrl(path))
+func Init(key string) *Coinbase {
+  return &Coinbase{apiKey: key, baseUrl: "https://coinbase.com/api/v1"}
+}
+
+func (c *Coinbase) Get(path string) []byte {
+	res, err := http.Get(c.makeUrl(path))
 	panicOnError(err)
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
@@ -27,6 +29,6 @@ func panicOnError(err error) {
 	}
 }
 
-func makeUrl(relativePath string) string {
-	return baseUrl + relativePath + "?api_key=" + apiKey
+func (c *Coinbase) makeUrl(relativePath string) string {
+	return c.baseUrl + relativePath + "?api_key=" + c.apiKey
 }

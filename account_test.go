@@ -8,7 +8,7 @@ func TestBalance(t *testing.T) {
 	setTestServerResponseBody(response)
 
 	expected := 2.324
-	actual := Balance()
+	actual := c.Balance()
 
 	if actual != expected {
 		t.Error("Expected:", expected, "Actual:", actual)
