@@ -14,3 +14,16 @@ func TestBalance(t *testing.T) {
 		t.Error("Expected:", expected, "Actual:", actual)
 	}
 }
+
+func TestReceiveAddress(t *testing.T) {
+  response := "{\"success\":true,\"address\":\"1P8idYiG7AwwLbXNrMbNcfZSY4DG" +              "92CcWw\",\"callback_url\":null}"
+
+  setTestServerResponseBody(response)
+
+  expected := "1P8idYiG7AwwLbXNrMbNcfZSY4DG92CcWw"
+  actual := c.ReceiveAddress()
+
+	if actual != expected {
+		t.Error("Expected:", expected, "Actual:", actual)
+	}
+}
