@@ -1,6 +1,7 @@
 # gocoinbase [![Build Status](https://travis-ci.org/zachlatta/gocoinbase.png?branch=master)](https://travis-ci.org/zachlatta/gocoinbase)
 
-Go wrapper for the Coinbase API.
+Go wrapper for the Coinbase API. Heavily inspired by
+[coinbase-ruby](https://github.com/coinbase/coinbase-ruby).
 
 ## Installation
 
@@ -17,4 +18,10 @@ import `os` in your application.
 
 ```go
 coinbase := gocoinbase.Init(os.Getenv("COINBASE_API_KEY"))
+```
+
+You'll now be able to call methods on `coinbase` to interact with your account.
+
+```go
+fmt.Println(coinbase.Balance)
 ```
